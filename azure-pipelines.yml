@@ -1,0 +1,27 @@
+trigger:
+- master
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- script: echo "Starting Dacpac deployment"
+  displayName: 'Debug: Starting deployment'
+
+- task: SqlAzureDacpacDeployment@1
+  inputs:
+    azureSubscription: 'Azure for Students(4707e184-80ba-4a8e-a697-f69602bdbe14)'
+    AuthenticationType: 'server'
+    ServerName: 'sqlserverlearning.database.windows.net'
+    DatabaseName: 'destDatabase'
+    SqlUsername: 'dbadmin'
+    SqlPassword: '$(pass)'
+    deployType: 'DacpacTask'
+    DeploymentAction: 'Publish'
+    DacpacFile: 'build/SqlDatabseusingBACPAC.dacpac'
+    IpDetectionMethod: 'AutoDetect'
+  continueOnError: true
+  displayName: 'Deploy Dacpac to Azure SQL Database'
+
+- script: echo "Finished Dacpac deployment"
+  displayName: 'Debug: Finished deployment'

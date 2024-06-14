@@ -25,3 +25,4 @@ steps:
 
 - script: echo "Finished Dacpac deployment"
   displayName: 'Debug: Finished deployment'
+
